@@ -2,7 +2,7 @@ const AWS = require('aws-sdk')
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient({endpoint: 'http://dynamodb:8000'})
 
-const getPokemon = id => new Promise((resolve, reject) => {
+const getPokemon = id => {
   params = {
     "TableName": "pokedex",
     "Key": {
@@ -10,14 +10,9 @@ const getPokemon = id => new Promise((resolve, reject) => {
     }
   }
 
-  dynamoDb.get(params, function(err, data) {
-    if (err) {
-      reject(err)
-    } else {
-      resolve(data)
-    }
-  })
-})
+  return dynamoDb.get(params).promise()
+}
+
 
 exports.resolvers = {
   Query: {
