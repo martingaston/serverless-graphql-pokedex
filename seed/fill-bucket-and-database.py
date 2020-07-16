@@ -1,6 +1,7 @@
 import io
 import boto3
 import requests
+import os
 from tqdm import tqdm
 from time import sleep
 
@@ -8,6 +9,15 @@ DYNAMO_DB_TABLE_NAME = "pokedex"
 POKE_API_URL = "https://pokeapi.co/api/v2"
 S3_BUCKET = "mg-testybucket"
 AWS_REGION = "eu-west-2"
+
+def is_dev():
+    return os.getenv('ENV') == 'local'
+
+def get_db():
+    if is_dev():
+        return boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
+
+    return boto3.resource('dynamodb')
 
 def get_pokemon_api_url(id):
     return f"{POKE_API_URL}/pokemon/{id}"
@@ -41,15 +51,18 @@ def get_filename_from_url(sprite_url):
     return sprite_url.split("/")[-1]
 
 if __name__ == "__main__":
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = get_db()
     table = dynamodb.Table(DYNAMO_DB_TABLE_NAME)
     s3_client = boto3.client('s3')
 
-    for id in tqdm(range(1, 5)):
+    for id in tqdm(range(1, 152)):
         request = requests.get(get_pokemon_api_url(id))
         pokemon = parse_pokemon_data_from_api_request(request)
-        sprite_upload_url = upload_pokemon_image_to_bucket(pokemon['sprite'], S3_BUCKET, s3_client)
-        pokemon['sprite'] = sprite_upload_url
+
+        if not is_dev():
+            sprite_upload_url = upload_pokemon_image_to_bucket(pokemon['sprite'], S3_BUCKET, s3_client)
+            pokemon['sprite'] = sprite_upload_url
+
         put_pokemon_in_table(pokemon, table)
         sleep(0.5)
 
