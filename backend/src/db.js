@@ -1,6 +1,11 @@
 const AWS = require('aws-sdk')
 
-const dynamoDb = new AWS.DynamoDB.DocumentClient({endpoint: 'http://dynamodb:8000'})
+const documentClientOptions = {}
+if (process.env.ENV == 'local') {
+  documentClientOptions.endpoint = 'http://dynamodb:8000'
+}
+
+const dynamoDb = new AWS.DynamoDB.DocumentClient(documentClientOptions)
 const TABLE_NAME = "pokedex"
 
 exports.getPokemon = id => {
