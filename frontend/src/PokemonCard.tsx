@@ -1,25 +1,15 @@
 import React from 'react'
-import { gql, useMutation } from '@apollo/client'
 
 export type PokemonCardInfo = {
     name: string,
     id: number,
     type: string[],
     sprite: string,
-    likes: number
+    likes: number,
+    addLike(variables: object): Promise<object>,
 }
 
-const LIKE_POKEMON = gql`
-mutation likePokemon($id: ID!) {
-    likePokemon(id: $id) {
-      id
-      likes
-    }
-  }
-`
-
-const PokemonCard = ({ name, id, type, sprite, likes }: PokemonCardInfo) => {
-    const [addLike] = useMutation(LIKE_POKEMON);
+const PokemonCard = ({ name, id, type, sprite, likes, addLike }: PokemonCardInfo) => {
     return (
         <section className="w-64 mb-6">
             <div className="bg-white rounded-lg p-6">

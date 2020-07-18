@@ -12,7 +12,6 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <GetAllPokemon />
-      <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
     </ApolloProvider>
   );
 }
