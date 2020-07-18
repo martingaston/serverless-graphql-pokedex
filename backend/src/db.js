@@ -1,9 +1,7 @@
 const AWS = require('aws-sdk')
 
 const documentClientOptions = {}
-if (process.env.ENV == 'local') {
-  documentClientOptions.endpoint = 'http://dynamodb:8000'
-}
+documentClientOptions.endpoint = 'http://dynamodb:8000'
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient(documentClientOptions)
 const TABLE_NAME = "pokedex"
@@ -19,12 +17,25 @@ exports.getPokemon = id => {
   return dynamoDb.get(params).promise().then(data => data.Item)
 }
 
-exports.getAllPokemon = () => {
+exports.getAllPokemon = async () => {
   const params = {
     "TableName": TABLE_NAME
   }
 
-  return dynamoDb.scan(params).promise().then(data => data.Items)
+  query = await dynamoDb.scan(params).promise().then(data => data.Items)
+  console.log(query)
+
+  query.sort((a, b) => {
+    if(a.id < b.id) {
+      return -1
+    }
+    if(b.id > a.id) {
+      return 1
+    }
+    return 0
+  })
+
+  return query
 }
 
 exports.likePokemon = id => {

@@ -10,6 +10,6 @@ exports.resolvers = {
     likePokemon: (parent, args, context) => likePokemon(args.id)
   },
   Pokemon: {
-    type: (parent) => parent.type.values
+    type: (parent) => parent.type
   }
 }
