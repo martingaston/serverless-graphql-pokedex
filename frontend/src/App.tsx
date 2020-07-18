@@ -1,36 +1,19 @@
 import React from 'react';
 import './App.css';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
-import PokemonCard from './PokemonCard'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import GetAllPokemon from './GetAllPokemon'
 
 const client = new ApolloClient({
-  uri: 'https://48p1r2roz4.sse.codesandbox.io',
+  uri: 'http://localhost:5000/graphql/',
   cache: new InMemoryCache()
 });
 
-const pikachu = {
-  name: "pikachu",
-  id: 25,
-  type: ["electric"],
-  sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
-  likes: 5,
-}
-
-const ditto = {
-  name: "ditto",
-  id: 132,
-  type: ["normal"],
-  sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
-  likes: 404,
-}
-
 function App() {
   return (
-    <>
-      <PokemonCard {...pikachu} />
-      <PokemonCard {...ditto} />
+    <ApolloProvider client={client}>
+      <GetAllPokemon />
       <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-    </>
+    </ApolloProvider>
   );
 }
 

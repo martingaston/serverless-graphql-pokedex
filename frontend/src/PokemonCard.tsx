@@ -1,6 +1,6 @@
 import React from 'react'
 
-type PokemonCardInfo = {
+export type PokemonCardInfo = {
     name: string,
     id: number,
     type: string[],
