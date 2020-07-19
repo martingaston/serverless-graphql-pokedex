@@ -8,7 +8,7 @@ exports.typeDefs = gql`
   }
 
   type Mutation {
-    likePokemon(id: ID!): Pokemon
+    likePokemon(id: ID!, increment: Int = 1): Pokemon
   }
 
   type Pokemon {

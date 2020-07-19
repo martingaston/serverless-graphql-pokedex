@@ -23,7 +23,6 @@ exports.getAllPokemon = async () => {
   }
 
   query = await dynamoDb.scan(params).promise().then(data => data.Items)
-  console.log(query)
 
   query.sort((a, b) => {
     if(a.id < b.id) {
@@ -38,7 +37,7 @@ exports.getAllPokemon = async () => {
   return query
 }
 
-exports.likePokemon = id => {
+exports.likePokemon = (id, increment = 1) => {
   const params = {
     "TableName": TABLE_NAME,
     "Key": {
@@ -46,7 +45,7 @@ exports.likePokemon = id => {
     },
     "UpdateExpression": "SET likes = likes + :i",
     "ExpressionAttributeValues": {
-      ":i": 1
+      ":i": increment
     },
     "ReturnValues": "ALL_NEW",
   }

@@ -7,7 +7,7 @@ exports.resolvers = {
     pokemon: (parent, args, context) => getPokemon(args.id)
   },
   Mutation: {
-    likePokemon: (parent, args, context) => likePokemon(args.id)
+    likePokemon: (parent, args, context) => likePokemon(args.id, args.increment)
   },
   Pokemon: {
     type: (parent) => parent.type
