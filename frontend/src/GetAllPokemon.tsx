@@ -15,8 +15,8 @@ const QUERY_ALL_POKEMON = gql`
   }
 `
 const LIKE_POKEMON = gql`
-mutation likePokemon($id: ID!) {
-    likePokemon(id: $id) {
+mutation likePokemon($id: ID!, $increment: Int) {
+    likePokemon(id: $id, increment: $increment) {
       id
       likes
     }
@@ -30,8 +30,8 @@ const GetAllPokemon = () => {
   if (loading) return <Spinner />
   if (error) return <p>Error...</p>
 
-  return data.allPokemon.map((card: PokemonCardInfo) => (
-    <PokemonCard {...card} addLike={addLike} />
+  return data.allPokemon.map((card: PokemonCardInfo, i: number) => (
+    <PokemonCard key={i} {...card} addLike={addLike} />
   ))
 }
 
