@@ -93,3 +93,75 @@
       transform: translate(24px, 0);
     }
   }
+
+.t-normal {
+    background-color: #aa9;
+}
+
+.t-fire {
+    background-color: #f42;
+}
+
+.t-water {
+  background-color: #39f;
+}
+
+.t-electric {
+  background-color: #fc3;
+}
+
+.t-grass {
+  background-color: #7c5;
+}
+
+.t-ice {
+  background-color: #6cf;
+}
+
+.t-fighting {
+  background-color: #b54;
+}
+
+.t-poison {
+  background-color: #a59;
+}
+
+.t-ground {
+  background-color: #db5;
+}
+
+.t-flying {
+  background-color: #89f;
+}
+
+.t-psychic {
+  background-color: #f59;
+}
+
+.t-bug {
+  background-color: #ab2;
+}
+
+.t-rock {
+  background-color: #ba6;
+}
+
+.t-ghost {
+  background-color: #66b;
+}
+
+.t-dragon {
+  background-color: #76e;
+}
+
+.t-dark {
+  background-color: #754;
+}
+
+.t-steel {
+  background-color: #aab;
+}
+
+.t-fairy {
+  background-color: #e9e;
+}
