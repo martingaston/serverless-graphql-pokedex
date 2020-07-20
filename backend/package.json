@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "sam local start-api --docker-network lambda-local -p 5000 -t serverless-pokedex-backend-cloudformation.yml",
+    "create-db": "./bin/local-db.sh"
   },
   "keywords": [],
   "author": "",

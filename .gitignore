@@ -1,4 +1,4 @@
 node_modules
-seed/sprites
-seed/pokedex.json
+backend/seed/sprites
+backend/seed/pokedex.json
 frontend/public/images
